@@ -46,6 +46,7 @@ LOCAL_APPS = (
     # custom users app
     'sozluk.users.apps.UsersConfig',
     # Your stuff: custom apps go here
+    "sozluk.topics",
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
