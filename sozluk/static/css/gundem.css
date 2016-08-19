@@ -1,0 +1,80 @@
+.baslik h3{
+	margin-bottom: 20px;
+	margin-top: 50px;
+}
+ .ikonNick{
+ 	padding-bottom: 40px;
+ }
+
+ .baslik .form-group textarea{
+ 	box-shadow: none;
+ 	border-color: lightgray;
+ }
+
+ .sayfaDugmeleri{
+ 	float: right;
+ }
+
+ .sayfaDugmeleri .btn {
+ 	background-color: #fff;
+ 	border-color: lightgrey;
+
+ }
+
+ .sayfaDugmeleri select{
+ 	height: 34px;
+ 	width: 42px;
+ 	border-radius: 5px;
+ 	border-color: lightgrey;
+ }
+
+  .sayfaDugmeleri2{
+ 	float: right;
+ 	margin-bottom: 20px;
+ }
+
+ .sayfaDugmeleri2 .btn {
+ 	background-color: #fff;
+ 	border-color: lightgrey;
+
+ }
+
+ .sayfaDugmeleri2 select{
+ 	height: 34px;
+ 	width: 42px;
+ 	border-radius: 5px;
+ 	border-color: lightgrey;
+ }
+
+ .tagEksiSozluk{
+ 	padding: 5px;
+ 	background-color: black;
+ 	color: white;
+ 	border:1px solid #ddd;
+ }
+
+ .tagEksiSozluk:hover{
+ 	padding: 5px;
+ 	background-color: black;
+ 	color: white;
+ 	border:1px solid #ddd;
+ }
+
+ .tagOner{
+ 	color: #757575;
+ }
+
+ .wellAlt{
+ 	border:1px solid #ddd;
+ 	background-color: #616161;
+ 	min-height: 100px;
+ 	padding: 20px; 
+ 	margin-top: -20px;
+ }
+
+ .wellAlt ul li a{
+	background-color: black;
+	color: white;
+	padding: 2px;
+ }
+

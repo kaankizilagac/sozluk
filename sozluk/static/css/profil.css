@@ -1,0 +1,95 @@
+.baslik > h3{
+	margin-top: 50px;
+}
+
+blockquote{
+	margin-top: 30px;
+}
+
+.ayarlarTab li a{
+	border: 1px solid lightgrey;
+}
+
+.ayarlarTab li.active a{
+	color: green;
+}
+
+.ayarlarMesaj{
+	font-weight: normal;
+}
+
+.ayarlarKapat{
+	font-weight: normal;
+}
+
+.ayarlarMesajBaslik{
+	padding-top: 15px;
+	font-weight: bold;
+	padding-bottom: 20px
+}
+
+.ayarlarSifreBaslik{
+	padding-top: 15px;
+	font-weight: bold;
+	padding-bottom: 20px;
+}
+
+.ayarlarEmailBaslik{
+	padding-top: 15px;
+	font-weight: bold;
+	padding-bottom: 20px;
+
+}
+
+.ayarlarKisiselBaslik{
+	padding-top: 15px;
+	font-weight: bold;
+	padding-bottom: 20px;	
+}
+
+.kullaniciSozlesmesi{
+	padding-top: 40px;
+}
+
+.ayarlarKapatBaslik{
+	padding-top: 15px;
+	font-weight: bold;
+	padding-bottom: 20px;	
+}
+
+select.dogumTarihiGun{
+	width: 40px;
+	height: 35px;
+}
+
+select.dogumTarihiAy{
+	width: 100px;
+	height: 35px;
+}
+
+select.dogumTarihiYil{
+	width: 75px;
+	height: 35px;
+}
+
+.cinsiyet .btn:hover{
+	background-color: lightgreen;
+	color: white;
+}
+
+.cinsiyet .btn:focus{
+	background-color: lightgreen;
+	color: white;
+	border-color: transparent;
+}
+
+.sbEntry .btn:hover{
+	background-color: lightgreen;
+	color: white;
+}
+
+.sbEntry .btn:focus{
+	background-color: lightgreen;
+	color: white;
+	border-color: transparent;
+}

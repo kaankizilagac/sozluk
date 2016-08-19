@@ -1,0 +1,19 @@
+.mesaj{
+	background-color: lightgreen;
+	color: white;
+	border-radius: 10px;
+}
+
+.mesaj:hover{
+	color: white;
+	text-decoration: underline;
+}
+
+.girisAyar{
+	font-weight: bold;
+	background-color: transparent;
+}
+
+.baslik h3 a{
+	color: green;
+}
