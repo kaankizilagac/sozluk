@@ -1,0 +1,7 @@
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+	color: green;
+	border-bottom:3px solid green;
+	padding-bottom: 10px;
+	border-radius: 0px;
+	background-color: transparent;
+}

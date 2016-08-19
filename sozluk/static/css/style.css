@@ -1,0 +1,89 @@
+header{
+	border-top: 3px solid lightgreen;
+	padding-bottom: 15px;
+	padding-top:10px;
+	border-bottom: 1px solid lightgrey;
+	height: 119px;
+}
+
+a{
+	color: black;
+	text-decoration: none;
+}
+
+a:hover{
+	color: black;
+}
+
+.nav.nav-pills.ustMenu .drop ul a{
+	padding-bottom: 5px;
+
+}
+
+.nav.nav-pills.ustMenu .drop ul a:hover{
+	color: black;
+	background-color: #fafafa;
+	border-bottom: none;
+
+}
+
+.nav.nav-pills.ustMenu li a:hover{
+	color: green;
+	border-bottom:3px solid green;
+	padding-bottom: 10px;
+	border-radius: 0px;
+	background-color: transparent;
+}
+
+.ucNokta{
+	background-color: transparent;
+}
+
+.ucNokta:hover{
+	color: green;
+	border-bottom:3px solid green;
+	padding-bottom: 10px;
+	border-radius: 0px;
+	background-color: transparent;
+
+}
+
+.ucNokta:focus{
+	border:none;
+}
+
+.nav.nav-pills.nav-stacked{
+	min-height: auto;
+	max-height: 890px;
+	position: static;
+	overflow-y:auto;
+	overflow-x: none; 
+}
+
+.baslik{
+	margin-top: 50px;
+	max-height: 890px;
+	overflow-y: auto;
+	width: 80%; 
+}
+
+.baslik > h3{	
+	margin-top: 100px;
+}
+body{
+	height: 890px;
+}
+
+.baslik::-webkit-scrollbar { 
+    display: none; 
+}
+
+.altMenu > li > a{
+	color: green;
+}
+
+.altMenu > li > a:hover{
+	background-color: transparent;
+	color: green;
+	text-decoration: underline;
+}
