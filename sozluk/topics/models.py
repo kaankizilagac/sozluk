@@ -65,7 +65,7 @@ class Entry(models.Model):
 signals.post_save.connect(check_junior, sender=Entry)
 
 
-class Favoutire(models.Model):
+class Favourite(models.Model):
     entry = models.ForeignKey(
         Entry
     )

@@ -19,6 +19,12 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+      <style>
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+    color: #fff;
+    background-color: #5cb85c;
+}
+      </style>
   </head>
   <body>
     <header style="">
@@ -49,21 +55,23 @@
     			<div class="col-lg-1"></div>
     		</div>
     		<div class="row" style="padding-top:10px;">
-    			<div class="col-lg-1"></div>
+    			<div class="col-lg-1">
+
+                </div>
     			<div class="col-lg-6">
-    				<ul class="nav nav-pills ustMenu">
-    					<li><a href="">bugün</a></li>
-    					<li><a href="">popüler</a></li>
-    					<li><a href="">badi</a></li>
-    					<li><a href="">çaylaklar</a></li>
-    					<li><a href="">#spor</a></li>
-    					<li><a href="">#edebiyat</a></li>
-    					<li><a href="">#siyaset</a></li>
+    				<ul class="nav nav-pills main-tab-menu">
+    					<li><a href="https://jsonplaceholder.typicode.com/todos">bugün</a></li>
+    					<li><a href="https://jsonplaceholder.typicode.com/posts">popüler</a></li>
+    					<li><a href="https://jsonplaceholder.typicode.com/albums">badi</a></li>
+    					<li><a href="https://jsonplaceholder.typicode.com/photos">çaylaklar</a></li>
+    					<li><a href="https://jsonplaceholder.typicode.com/todos">#spor</a></li>
+    					<li><a href="https://jsonplaceholder.typicode.com/posts">#edebiyat</a></li>
+    					<li><a href="https://jsonplaceholder.typicode.com/albums">#siyaset</a></li>
 	    				<li class="drop">
 	    					<button class="btn ucNokta dropdown-toggle" type="button" id="			dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" 				aria-expanded="true">
 						   	 ...
 						  	</button>
-						  	<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+						  	<ul class="dropdown-menu " aria-labelledby="dropdownMenu1">
 						    	<li><a href="#">#anket</a></li>
 						    	<li><a href="#">#bilim</a></li>
 						    	<li><a href="#">#ekonomi</a></li>
@@ -89,9 +97,9 @@
 
     <div class="container-fluid">
     	<div class="row">
-    		<div class="col-lg-1"></div>
-    		<div class="col-lg-2">
-    			{% block sidebar %}{% endblock sidebar %}
+
+    		<div class="col-lg-3 left-side">
+
     		</div>
     		<div class="col-lg-8">
     			{% block content %}{% endblock content%}
@@ -105,5 +113,59 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{% static "js/bootstrap.min.js" %}"></script>
+    <script>
+        $(document).ready(function () {
+
+            var log = function (item) {
+
+                console.log(item);
+
+            };
+
+            var root;
+
+            $('.main-tab-menu a').on('click', function (event) {
+
+                $('.main-tab-menu li').removeClass('active');
+
+                event.preventDefault();
+
+                root = null;
+
+                $(this).parent('li').addClass('active');
+
+
+                root = $(this).attr('href');
+
+                $.ajax({
+
+                  url: root,
+
+                  method: 'GET'
+
+                }).then(function(data) {
+
+                    $('.left-side').html('');
+
+                    setTimeout(function(){
+
+                        $.each(data, function (key, listItems) {
+
+                            $('.left-side').append('<ul class="list-unstyled"><li><a href="#">' + listItems.title + '</a></li></ul>');
+
+                            log(listItems.title);
+
+                        });
+
+                    }, 0);
+
+
+                });
+
+            });
+
+        });
+
+    </script>
   </body>
 </html>
