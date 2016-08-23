@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 
+import datetime
+
 from django.core.urlresolvers import reverse
 from django.db import models
-from django.db.models import signals
+from django.db.models import signals, QuerySet
 from django.utils.translation import ugettext_lazy as _
 
 from sozluk.users.models import User
 from .signals import check_junior
+from model_utils.managers import PassThroughManagerMixin
 
 
 class Category(models.Model):
@@ -19,7 +22,20 @@ class Category(models.Model):
         return "#{title}".format(title=self.title)
 
 
+class TopicQuerySet(QuerySet):
+
+    def get_topic_today(self):
+        return self.filter(date=datetime.date.today())\
+                            .order_by('title')
+
+    def get_topic_popular(self):
+        return self.select_related('entry_set')
+
+
 class Topic(models.Model):
+
+    objects = PassThroughManagerMixin.for_queryset_class(TopicQuerySet)()
+
     user = models.ForeignKey(
         User,
         verbose_name=_("User")
@@ -43,6 +59,12 @@ class Topic(models.Model):
         verbose_name = _("Baslik")
         verbose_name_plural = _("Basliklar")
         ordering = ('created_at',)
+
+
+class EntryQuerySet(QuerySet):
+
+    def get_topic_popular(self):
+        return self.select_related('topic__title').annotate(Max)
 
 
 class Entry(models.Model):
