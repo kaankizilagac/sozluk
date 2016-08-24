@@ -24,7 +24,6 @@ class User(AbstractUser):
     def get_absolute_url(self):
         return reverse('users:detail', kwargs={'username': self.username})
 
-    '''
     def get_junior(self):
         cache_key = "user{}".format(self.pk)
         is_junior = cache.get(cache_key, None)
@@ -33,4 +32,3 @@ class User(AbstractUser):
             cache.set(cache_key, self.junior)
 
         return self.junior
-    '''
