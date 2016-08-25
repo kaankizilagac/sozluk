@@ -3,14 +3,14 @@ from __future__ import unicode_literals, absolute_import
 
 import datetime
 
-from django.core.urlresolvers import reverse
 from django.db import models
-from django.db.models import signals, QuerySet
+from django.db.models import signals, QuerySet, Count
+from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
 
 from sozluk.users.models import User
 from .signals import check_junior
-from model_utils.managers import PassThroughManagerMixin
+from model_utils.managers import QueryManager
 
 
 class Category(models.Model):
@@ -22,19 +22,20 @@ class Category(models.Model):
         return "#{title}".format(title=self.title)
 
 
-class TopicQuerySet(QuerySet):
-
-    def get_topic_today(self):
-        return self.filter(date=datetime.date.today())\
-                            .order_by('title')
-
-    def get_topic_popular(self):
-        return self.select_related('entry_set')
+# class CourseQuerySet(QuerySet):
+#
+#     def get_topic_today(self):
+#         return self.filter(created_at__day=datetime.date.today()).order_by('title')
+#
+#     def get_topic_popular(self):
+#         return self.annotate(entry_count=Count('entry')).order_by('-entry_count')
 
 
 class Topic(models.Model):
 
-    objects = PassThroughManagerMixin.for_queryset_class(TopicQuerySet)()
+    objects = models.Manager()
+
+    get_topic_today = QueryManager(created_at__day=now().day).order_by('title')
 
     user = models.ForeignKey(
         User,
@@ -55,16 +56,11 @@ class Topic(models.Model):
         verbose_name=_("Category")
     )
 
+
     class Meta:
         verbose_name = _("Baslik")
         verbose_name_plural = _("Basliklar")
         ordering = ('created_at',)
-
-
-class EntryQuerySet(QuerySet):
-
-    def get_topic_popular(self):
-        return self.select_related('topic__title').annotate(Max)
 
 
 class Entry(models.Model):

@@ -8,6 +8,10 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
 
+from sozluk.topics import urls as topic_api_urls
+
+
+
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='base2.html'), name='home'),
     url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name='about'),
@@ -20,7 +24,7 @@ urlpatterns = [
     url(r'^accounts/', include('allauth.urls')),
 
     # Your stuff: custom urls includes go here
-
+    url(r'^topic/', include(topic_api_urls, namespace='topic-general')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
