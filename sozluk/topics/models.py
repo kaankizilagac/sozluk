@@ -3,6 +3,7 @@ from __future__ import unicode_literals, absolute_import
 
 import datetime
 
+from IPython.utils.py3compat import annotate
 from django.db import models
 from django.db.models import signals, QuerySet, Count
 from django.utils.timezone import now
@@ -22,20 +23,18 @@ class Category(models.Model):
         return "#{title}".format(title=self.title)
 
 
-# class CourseQuerySet(QuerySet):
-#
-#     def get_topic_today(self):
-#         return self.filter(created_at__day=datetime.date.today()).order_by('title')
-#
-#     def get_topic_popular(self):
-#         return self.annotate(entry_count=Count('entry')).order_by('-entry_count')
+    # def get_topic_popular(self):
+    #     return self.annotate(entry_count=Count('entry')).order_by('-entry_count')
 
 
 class Topic(models.Model):
 
     objects = models.Manager()
 
-    get_topic_today = QueryManager(created_at__day=now().day).order_by('title')
+    # get_topic_today = QueryManager(created_at__day=now().day).order_by('title')
+    get_topic_popular = QueryManager(entry_count=Count('entry')).order_by('-entry_count')
+    # get_last_entry = QueryManager(filter(id__in=Entry.objects.filter(user_id=request.user_id).values_list()))
+    get_last_topic = QueryManager()
 
     user = models.ForeignKey(
         User,
@@ -56,7 +55,6 @@ class Topic(models.Model):
         verbose_name=_("Category")
     )
 
-
     class Meta:
         verbose_name = _("Baslik")
         verbose_name_plural = _("Basliklar")
@@ -64,6 +62,13 @@ class Topic(models.Model):
 
 
 class Entry(models.Model):
+
+    objects = models.Manager()
+
+    get_like_entry_weekly = QueryManager()
+    get_like_entry_general = QueryManager()
+    get_last_voting_entry = QueryManager()
+
     user = models.ForeignKey(
         User,
         verbose_name=_("User")

@@ -1,0 +1,94 @@
+{% extends "base3.html" %}
+{% load staticfiles %}
+
+{% block head_block %} {% endblock %}
+
+{% block menu_block %}
+{% endblock %}
+
+{% block content %}
+
+    <div class="col-lg-8">
+        <div class="">
+
+            <h3>{{ request.user.username }}</h3>
+            <a href="#">badilere ekle</a>
+            <ul class="nav nav-pills">
+                <li>118</li>
+                <li>.</li>
+                <li>9</li>
+                <li>.</li>
+                <li>5</li>
+                <li>.</li>
+                <li>1</li>
+            </ul>
+            <br>
+            <p>henüz 10 entry'yi tamamlamadığınızdan onay sırasında değilsiniz.</p>
+            <blockquote>
+                <h3><a href="#">{{ q_top_last_entry.topic.title }}</a></h3>
+                <div class="content">
+                    {{ q_top_last_entry.content }}
+                </div>
+                <footer>28.03.2016 14:35</footer>
+            </blockquote>
+            <div class="row">
+                <div class="col-lg-6">
+                    <ul class="list-unstyled pull-right">
+                        <li><h3><a href="">son entry'leri</a></h3>
+                            <ul>
+                                {% for entry in q_last_entry %}
+                                <li><a href="/topic/{{ entry.topic_id }}/{{ entry.id }}/">{{ entry.topic.title }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        <li>
+                            <h3><a href="">son oylananları</a></h3>
+                            <ul>
+                                <li><a href="">galatasaray vs fenerbahce</a></li>
+                                <li><a href="">lorem</a></li>
+                                <li><a href="">lorem</a></li>
+                                <li><a href="">lorem</a></li>
+                                <li><a href="">lorem</a></li>
+                                <li><a href="">lorem</a></li>
+                                <li><a href="">lorem</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="col-lg-6">
+                    <ul class="list-unstyled pull-left">
+                        <li><h3><a href="">bu hafta dikkat çekenler</a></h3>
+                            <ul>
+                                <li><a href="">galatasaray vs fenerbahce</a></li>
+                                <li><a href="">lorem</a></li>
+                                <li><a href="">lorem</a></li>
+                                <li><a href="">lorem</a></li>
+                                <li><a href="">lorem</a></li>
+                                <li><a href="">lorem</a></li>
+                                <li><a href="">lorem</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <h3><a href="">en beğenilenleri</a></h3>
+                            <ul>
+                                <li><a href="">galatasaray vs fenerbahce</a></li>
+                                <li><a href="">lorem</a></li>
+                                <li><a href="">lorem</a></li>
+                                <li><a href="">lorem</a></li>
+                                <li><a href="">lorem</a></li>
+                                <li><a href="">lorem</a></li>
+                                <li><a href="">lorem</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+
+        </div>
+
+    </div>
+{% endblock content %}
+
+{% block script_block %}{% endblock %}
