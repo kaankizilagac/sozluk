@@ -95,73 +95,72 @@
         </div>
     </div>
 </header>
+<br>
+    <div class="container-fluid">
+        <div class="row">
+            {# sol taraf #}
+            <div class="col-lg-2">
+                <div class="left-side">
 
-<div class="container-fluid">
-    <div class="row">
+                </div>
+            </div>
+            {# sol taraf son#}
+            {# ************************** #}
+            {# orta taraf #}
+            <div class="col-lg-8">
 
-        <div class="col-lg-2 left-side">
+                {% block content %}
+                <p class="lead">
+                    {{ q_main_topic.topic.title }}
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis eos error est, explicabo repellat repellendus voluptatum. Accusantium ad distinctio harum sequi sunt! Consequuntur, deserunt dolorem libero obcaecati praesentium quo reiciendis.
+                </p>
 
-        </div>
-        <div class="col-lg-7">
-
-            {% block content %}
-
-                <div class="">
-
-                        <h3><a href="gundem1.html">Gündemdeki olay başlığı 1</a></h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex accusamus harum repellendus
-                            sequi eligendi alias, aliquam possimus consequatur, quidem obcaecati cum ducimus, cumque
-                            tempore adipisci libero dignissimos et odio. Unde.</p>
-                        <div class="ikonNick">
-                            <i class="fa fa-angle-up fa-2x"></i>
-                            <i class="fa fa-angle-down fa-2x"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <i class="fa fa-tint fa-1x"></i>
-                            <p class="pull-right">07.08.2016 11:01
-                                <a href="#">nickname</a>
-                                <a href="#">...</a>
-                            </p>
-                        </div>
-
-
-                        <div class="form-group">
+                    <div class="form-group">
                             <textarea class="form-control" rows="5" id="comment"
                                       placeholder="konu hakkında bilgi verin"></textarea><br>
-                            <button class="btn btn-success">gönder</button>
-                        </div>
-
-                        <hr>
+                        <button class="btn btn-success">gönder</button>
                     </div>
-
-                </div>
-                <div class="col-lg-3 right-side">
-                    <div class="well">
-                        <h3>başlığın kanalları</h3>
-                        <a href="#" class="tagEksiSozluk">#ekşi-sözlük</a>
-                        <a href="#" class="tagEksiSozluk">#sanat</a>
-                        <a href="#" class="tagOner"> öner...</a>
-                    </div>
-                    <div class="wellAlt">
-                        <ul class="nav nav-pills">
-                            <li><a href="#">#sanat</a></li>
-                            <li><a href="#">#edebiyat</a></li>
-                            <li><a href="#">#siyaset</a></li>
-                            <li><a href="#">#havacılık</a></li>
-                            <li><a href="#">#sinema</a></li>
-                        </ul>
-                        <br>
-                        <a href="#">yapılmış öneriler</a>
-                    </div>
-                </div>
-                </div>
-                </div>
+                {% endblock content %}
 
 
-            {% endblock content %}
-
-</div>
-<div class="col-lg-1"></div>
-</div>
-</div>
+            </div>
+            {# orta taraf son#}
+            {# ************************** #}
+            {# sağ taraf #}
+            <div class="col-lg-2">
+                <div class="well well-sm">
+                    <h3>Başlığın Kanalları</h3>
+                    <ul class="list-inline">
+                        <li><a href="#">link</a></li>,
+                        <li><a href="#">link</a></li>,
+                        <li><a href="#">link</a></li>,
+                        <li><a href="#">link</a></li>,
+                        <li><a href="#">link</a></li>,
+                        <li><a href="#">link</a></li>,
+                    </ul>
+                </div>
+            </div>
+            {# sağ taraf son#}
+        </div>
+                <hr>
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <ul class="list-inline text-center">
+                    <li><a href="#">iletişim</a></li>
+                    <li><a href="#">kullanım koşulları</a></li>
+                    <li><a href="#">sss</a></li>
+                    <li><a href="#">istatistikler</a></li>
+                    <li><a href="#">modlog</a></li>
+                    <li><a href="#">sub-etha</a></li>
+                    <li><a href="#">twitter</a></li>
+                    <li><a href="#">facebook</a></li>
+                    <li><a href="#">google+</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -233,5 +232,7 @@
     });
 
 </script>
+
+
 </body>
 </html>
