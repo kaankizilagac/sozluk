@@ -8,11 +8,13 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
 
+from sozluk.home import urls as home_api_urls
 from sozluk.topics import urls as topic_api_urls
 from sozluk.userprofile import urls as profile_api_urls
+from sozluk.home.views import home
 
 urlpatterns = [
-    url(r'^$', TemplateView.as_view(template_name='base3.html'), name='home'),
+    url(r'^$', home, name="home"),
     url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name='about'),
 
     # Django Admin, use {% url 'admin:index' %}
@@ -25,6 +27,7 @@ urlpatterns = [
     # Your stuff: custom urls includes go here
     url(r'^topic/', include(topic_api_urls, namespace='topic-general')),
     url(r'^profile/', include(profile_api_urls, namespace='user-profile-general')),
+    url(r'^entry/', include(home_api_urls, namespace='home-general')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
