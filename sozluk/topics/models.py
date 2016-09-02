@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 
-import datetime
+from os.path import splitext
 
 from IPython.utils.py3compat import annotate
 from django.db import models
 from django.db.models import signals, QuerySet, Count
 from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
+from autoslug import AutoSlugField
 
 from sozluk.users.models import User
 from .signals import check_junior
-from model_utils.managers import QueryManager
 
 
 class Category(models.Model):
@@ -32,9 +32,9 @@ class Topic(models.Model):
     objects = models.Manager()
 
     # get_topic_today = QueryManager(created_at__day=now().day).order_by('title')
-    get_topic_popular = QueryManager(entry_count=Count('entry')).order_by('-entry_count')
+    # get_topic_popular = QueryManager(entry_count=Count('entry')).order_by('-entry_count')
     # get_last_entry = QueryManager(filter(id__in=Entry.objects.filter(user_id=request.user_id).values_list()))
-    get_last_topic = QueryManager()
+    # get_last_topic = QueryManager()
 
     user = models.ForeignKey(
         User,
@@ -55,6 +55,11 @@ class Topic(models.Model):
         verbose_name=_("Category")
     )
 
+    slug = AutoSlugField(
+        populate_from='title',
+        unique=True
+    )
+
     class Meta:
         verbose_name = _("Baslik")
         verbose_name_plural = _("Basliklar")
@@ -64,10 +69,10 @@ class Topic(models.Model):
 class Entry(models.Model):
 
     objects = models.Manager()
-
-    get_like_entry_weekly = QueryManager()
-    get_like_entry_general = QueryManager()
-    get_last_voting_entry = QueryManager()
+    #
+    # get_like_entry_weekly = QueryManager()
+    # get_like_entry_general = QueryManager()
+    # get_last_voting_entry = QueryManager()
 
     user = models.ForeignKey(
         User,
@@ -84,6 +89,7 @@ class Entry(models.Model):
         auto_now=True,
         verbose_name=_("Created at")
     )
+
 
 signals.post_save.connect(check_junior, sender=Entry)
 

@@ -33,11 +33,11 @@
             </blockquote>
             <div class="row">
                 <div class="col-lg-6">
-                    <ul class="list-unstyled pull-right">
+                    <ul class="list-unstyled pull-left ">
                         <li><h3><a href="">son entry'leri</a></h3>
                             <ul>
                                 {% for entry in q_last_entry %}
-                                <li><a href="/topic/{{ entry.topic_id }}/{{ entry.id }}/">{{ entry.topic.title }}</a></li>
+                                <li><a href="/entry/{{ entry.topic.slug }}/">{{ entry.topic.title }}</a></li>
                                 {% endfor %}
                             </ul>
                         </li>

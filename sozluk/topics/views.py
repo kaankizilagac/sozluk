@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.core import serializers
 from django.http import HttpResponse
 from django.db.models import Count
@@ -18,38 +19,18 @@ def popular_topic(request):
     query_popular = serializers.serialize('json', q_popular)
     return HttpResponse(query_popular, content_type="application/json")
 
-# def junior_topic(request):
-#     query_junior = Entry.objects.filter(topic__user=)
+
+def junior_topic(request):
+    query_junior = Entry.objects.filter()
 
 
-def channels(request, category):
-    q_channels = Topic.objects.filter(category=category).prefetch_related('title')
+def channels(request):
+    print('asdasd')
+    q_channels = Topic.objects.values_list('title'
+                                           )
     query_channels = serializers.serialize('json', q_channels)
     print(query_channels)
     return HttpResponse(query_channels, content_type="application/json")
-
-
-def mainpage_qs(request, title):
-
-    q_main_topic = Entry.objects.filter(user_id=request.user.id).order_by('created_at').select_related('topic')[:1]
-    print(q_main_topic)
-    q_main_entry = Entry.objects.filter()
-
-    context = {
-        "q_main_topic": q_main_topic,
-        "q_main_entry": q_main_entry
-    }
-
-    return render(request, 'base3.html', context)
-
-
-
-
-
-
-
-
-
 
 
 

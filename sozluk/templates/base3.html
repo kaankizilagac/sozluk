@@ -46,10 +46,11 @@
             <div class="col-lg-2"></div>
             <div class="col-lg-2 pull-left">
                 {% if user.is_authenticated %}
-                    <a href="{% url "user-profile-general:user-profile" %}">profil</a>
+                    <a href="{% url "user-profile-general:user-profile" %}">Profil</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="{% url 'account_logout' %}">Çıkış</a>
                 {% else %}
-                    <a href="#">giriş</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a href="#">kayıt ol</a>
+                    <a href="{% url 'account_login' %}">giriş</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="{% url 'account_signup' %}">kayıt ol</a>
                 {% endif %}
             </div>
             <div class="col-lg-1"></div>
@@ -110,20 +111,31 @@
             <div class="col-lg-8">
 
                 {% block content %}
+
                 <p class="lead">
-                    {{ q_main_topic.topic.title }}
+                    {{ topic.title }}
                 </p>
+
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis eos error est, explicabo repellat repellendus voluptatum. Accusantium ad distinctio harum sequi sunt! Consequuntur, deserunt dolorem libero obcaecati praesentium quo reiciendis.
+                <ul>
+
+                    {% for main in q_main_topic %}
+                        <li><a>{{ main.content }}</a></li>
+                    {% endfor %}
+
+                </ul>
                 </p>
+
+                            <div id="alertMsg" class="alert alert-warning hidden">
+                                içini doldur
+                            </div>
 
                     <div class="form-group">
                             <textarea class="form-control" rows="5" id="comment"
-                                      placeholder="konu hakkında bilgi verin"></textarea><br>
+                                      placeholder="-{{ topic.title }}- hakkında bilgi verin"></textarea><br>
                         <button class="btn btn-success">gönder</button>
                     </div>
                 {% endblock content %}
-
 
             </div>
             {# orta taraf son#}
@@ -184,7 +196,7 @@
 
             $.each(data, function (key, listItems) {
 
-                $('.left-side').append('<ul class="list-unstyled"><li><a href="#">' + listItems.fields.title + '</a></li></ul>');
+                $('.left-side').append('<ul class="list-unstyled"><li><a href="http://127.0.0.1:8000/entry/">' + listItems.fields.title + '</a></li></ul>');
 
 
             });
@@ -221,17 +233,74 @@
 
             $.each(data, function (key, listItems) {
 
-                $('.left-side').append('<ul class="list-unstyled"><li><a href="#">' + listItems.fields.title + '</a></li></ul>');
-
+                $('.left-side').append('<ul class="list-unstyled"><li><a href="http://127.0.0.1:8000/entry/{{ topic.title }}">' + listItems.fields.title + '</a></li></ul>');
 
             });
 
         });
 
+    });
+
+    $('.main-tab-menu a').on('click', function (event) {
+
+        event.preventDefault();
+
+        $('.main-tab-menu li').removeClass('active');
+
+        root = null;
+
+        $(this).parent('li').addClass('active');
+
+
+        root = $(this).attr('href');
+
+        $.ajax({
+
+            url: root,
+
+            method: 'GET'
+
+        }).done(function (data) {
+
+
+            $('.left-side').html('');
+
+
+            $.each(data, function (key, listItems) {
+
+                $('.left-side').append('<ul class="list-unstyled"><li><a href="http://127.0.0.1:8000/entry/{{ topic.title }}">' + listItems.fields.title + '</a></li></ul>');
+
+            });
+
+        });
 
     });
 
+
+
+    $('textarea').keypress(function() {
+                $('#alertMsg').addClass('hidden');
+    });
+
+    $('.btn').on('click', function (data) {
+
+        if($('textarea').val().length < 1){
+            $('#alertMsg').removeClass('hidden');
+            return false;
+        }
+    });
+
+        $.ajax({
+    {#            url: '{% url 'home-general:new-entry' topic.slug %}',#}
+                url: '{% url 'home-general:new-entry' %}',
+                method: 'POST',
+                data: data
+            }).done(function () {
+                $('textarea').val('');
+            })
+
 </script>
+
 
 
 </body>
