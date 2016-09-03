@@ -60,6 +60,9 @@ class Topic(models.Model):
         unique=True
     )
 
+    def __str__(self):
+        return self.title
+    
     class Meta:
         verbose_name = _("Baslik")
         verbose_name_plural = _("Basliklar")

@@ -8,6 +8,7 @@ from . import views
 
 urlpatterns = [
 
-    url(r'new/$', views.new_entry, name='new-entry'),
+    url(r'new/$', views.new_entry, name='new_entry'),
+    url(r'(?P<slug>[\w-]+)/$', views.entry_page, name='entry_page'),
 
     ]

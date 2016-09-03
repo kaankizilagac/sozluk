@@ -28,4 +28,4 @@ class TopicAdmin(admin.ModelAdmin):
 
 @admin.register(Entry)
 class EntryAdmin(admin.ModelAdmin):
-    list_display = ('user',)
+    list_display = ('user', 'topic')

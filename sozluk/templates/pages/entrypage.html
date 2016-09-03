@@ -1,0 +1,49 @@
+{% extends "base3.html" %}
+{% load staticfiles %}
+
+
+{% block head_block %} {% endblock %}
+
+
+{% block menu_block %}
+{% endblock %}
+
+
+{% block content %}
+
+     <p class="lead">
+                    <b>{{ topic.title }}</b>
+                </p>
+
+                <ul class="list-unstyled" id="entryList">
+
+                    {% for main in q_main_topic %}
+                        <li>{{ main.content }}</li>
+                        <div class="ikonNick">
+                            <a class="yesil" ><i class="fa fa-angle-up fa-2x"></i></a>
+                            <a class="kirmizi" ><i class="fa fa-angle-down fa-2x"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a class="yesil" ><i class="fa fa-tint fa-1x"></i></a>
+                            <p class="pull-right">07.08.2016 11:01
+                                <a href="#">{{ main.user.username }}</a>
+                            </p>
+                        </div>
+                    {% endfor %}
+
+                </ul>
+                <form action="{% url "home-general:new_entry" %}" id="newEntryForm">
+                    {% csrf_token %}
+                    <div id="alertMsg" class="alert alert-warning hidden">
+                        içini doldur
+                    </div>
+                    <input type="hidden" name="topic_id" value="{{ topic.id }}">
+                    <div class="form-group">
+                        <textarea name="content" class="form-control" rows="5" id="comment" placeholder="-{{ topic.title }}- hakkında bilgi verin"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success">gönder</button>
+                </form>
+
+
+{% endblock content %}
+
+
+{% block script_block %}{% endblock %}
