@@ -7,7 +7,7 @@ from . import views
 
 
 urlpatterns = [
-    url(r'^today/$', views.today_topic, name='today-topic'),
-    url(r'^popular/$', views.popular_topic, name='popular-topic'),
-    url(r'^channels/(?P<category>[\w-]+)/$', views.channels, name='channels-topic'),
+    url(r'^today/$', views.today_topic, name='today_topic'),
+    url(r'^popular/$', views.popular_topic, name='popular_topic'),
+    url(r'^channels/$', views.channels, name='channels-topic'),
     ]

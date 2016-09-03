@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% load staticfiles topic_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,7 +31,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-2">
-                <a href="http://127.0.0.1:8000/"> <img src="../static/images/eksilogo.png" alt="Kaan"> </a>
+                <a href="{% url 'home' %}"> <img src="{% static "images/logo2.png" %}" alt="Kaan"> </a>
             </div>
             <div class="col-lg-1"></div>
             <div class="col-lg-4">
@@ -46,7 +46,8 @@
             <div class="col-lg-2"></div>
             <div class="col-lg-2 pull-left">
                 {% if user.is_authenticated %}
-                    <a href="{% url "user-profile-general:user-profile" %}">Profil</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="{% url "user-profile-general:user-profile" %}">Profil</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;
                     <a href="{% url 'account_logout' %}">Çıkış</a>
                 {% else %}
                     <a href="{% url 'account_login' %}">giriş</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -61,15 +62,15 @@
             </div>
             <div class="col-lg-6">
                 <ul class="nav nav-pills main-tab-menu">
-                    <li id="bugun"><a href="http://127.0.0.1:8000/topic/today/">bugün</a></li>
-                    <li><a href="http://127.0.0.1:8000/topic/popular/">popüler</a></li>
+                    <li id="bugun"><a href="{% url 'topic-general:today_topic' %}">bugün</a></li>
+                    <li><a href="{% url 'topic-general:popular_topic' %}">popüler</a></li>
                     <li><a href="https://jsonplaceholder.typicode.com/albums">badi</a></li>
                     <li><a href="https://jsonplaceholder.typicode.com/photos">çaylaklar</a></li>
                     <li><a href="https://jsonplaceholder.typicode.com/todos">#spor</a></li>
                     <li><a href="https://jsonplaceholder.typicode.com/posts">#edebiyat</a></li>
                     <li><a href="https://jsonplaceholder.typicode.com/albums">#siyaset</a></li>
                     <li class="drop">
-                        <button class="btn ucNokta dropdown-toggle" type="button" id="			dropdownMenu1"
+                        <button class="btn ucNokta dropdown-toggle" type="button" id="dropdownMenu1"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                             ...
                         </button>
@@ -97,114 +98,132 @@
     </div>
 </header>
 <br>
-    <div class="container-fluid">
-        <div class="row">
-            {# sol taraf #}
-            <div class="col-lg-2">
-                <div class="left-side">
+<div class="container-fluid">
+    <div class="row">
+        {# sol taraf #}
+        <div class="col-lg-2">
+            {% today_topics as topics %}
+            <div class="left-side">
+{#                <ul class="list-unstyled">#}
+{#                    #}
+{#                    {% for topic in topics %}#}
+{#                        <li><a href="{% url "home-general:entry_page" topic.slug %}">{{ topic.title }}</a></li>#}
+{#                    {% endfor %}#}
+{##}
+{#                </ul>#}
 
-                </div>
+
             </div>
-            {# sol taraf son#}
-            {# ************************** #}
-            {# orta taraf #}
-            <div class="col-lg-8">
+        </div>
+        {# sol taraf son#}
+        {# ************************** #}
+        {# orta taraf #}
+        <div class="col-lg-8">
 
-                {% block content %}
+            {% block content %}
 
                 <p class="lead">
-                    {{ topic.title }}
+                    <b>{{ topic.title }}</b>
                 </p>
 
-                <p>
-                <ul>
+                <ul class="list-unstyled" id="entryList">
 
                     {% for main in q_main_topic %}
-                        <li><a>{{ main.content }}</a></li>
+                        <li>{{ main.content }}</li>
+                        <div class="ikonNick">
+                            <a class="yesil" ><i class="fa fa-angle-up fa-2x"></i></a>
+                            <a class="kirmizi" ><i class="fa fa-angle-down fa-2x"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a class="yesil" ><i class="fa fa-tint fa-1x"></i></a>
+                            <p class="pull-right">07.08.2016 11:01
+                                <a href="#">{{ main.user.username }}</a>
+                            </p>
+                        </div>
                     {% endfor %}
 
                 </ul>
-                </p>
-
-                            <div id="alertMsg" class="alert alert-warning hidden">
-                                içini doldur
-                            </div>
-
-                    <div class="form-group">
-                            <textarea class="form-control" rows="5" id="comment"
-                                      placeholder="-{{ topic.title }}- hakkında bilgi verin"></textarea><br>
-                        <button class="btn btn-success">gönder</button>
+                <form action="{% url "home-general:new_entry" %}" id="newEntryForm">
+                    {% csrf_token %}
+                    <div id="alertMsg" class="alert alert-warning hidden">
+                        içini doldur
                     </div>
-                {% endblock content %}
+                    <input type="hidden" name="topic_id" value="{{ topic.id }}">
+                    <div class="form-group">
+                        <textarea name="content" class="form-control" rows="5" id="comment" placeholder="-{{ topic.title }}- hakkında bilgi verin"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success">gönder</button>
+                </form>
 
-            </div>
-            {# orta taraf son#}
-            {# ************************** #}
-            {# sağ taraf #}
-            <div class="col-lg-2">
-                <div class="well well-sm">
-                    <h3>Başlığın Kanalları</h3>
-                    <ul class="list-inline">
-                        <li><a href="#">link</a></li>,
-                        <li><a href="#">link</a></li>,
-                        <li><a href="#">link</a></li>,
-                        <li><a href="#">link</a></li>,
-                        <li><a href="#">link</a></li>,
-                        <li><a href="#">link</a></li>,
-                    </ul>
-                </div>
-            </div>
-            {# sağ taraf son#}
+            {% endblock content %}
+
         </div>
-                <hr>
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2">
-                <ul class="list-inline text-center">
-                    <li><a href="#">iletişim</a></li>
-                    <li><a href="#">kullanım koşulları</a></li>
-                    <li><a href="#">sss</a></li>
-                    <li><a href="#">istatistikler</a></li>
-                    <li><a href="#">modlog</a></li>
-                    <li><a href="#">sub-etha</a></li>
-                    <li><a href="#">twitter</a></li>
-                    <li><a href="#">facebook</a></li>
-                    <li><a href="#">google+</a></li>
+        {# orta taraf son#}
+        {# ************************** #}
+        {# sağ taraf #}
+        <div class="col-lg-2">
+            <div class="well well-sm">
+                <h3>Başlığın Kanalları</h3>
+                <ul class="list-inline">
+                    {% for x in qs_category %}
+                    <li><a href="#">{{ x.category.title }}</a></li>
+{#                            <li><a href="#">#edebiyat</a></li>#}
+{#                            <li><a href="#">#siyaset</a></li>#}
+{#                            <li><a href="#">#havacılık</a></li>#}
+{#                            <li><a href="#">#sinema</a></li>#}
+                    {% endfor %}
+
                 </ul>
             </div>
         </div>
+        {# sağ taraf son#}
     </div>
+    <hr>
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <ul class="list-inline text-center">
+                <li><a href="#">iletişim</a></li>
+                <li><a href="#">kullanım koşulları</a></li>
+                <li><a href="#">sss</a></li>
+                <li><a href="#">istatistikler</a></li>
+                <li><a href="#">modlog</a></li>
+                <li><a href="#">sub-etha</a></li>
+                <li><a href="#">twitter</a></li>
+                <li><a href="#">facebook</a></li>
+                <li><a href="#">google+</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="{% static "js/bootstrap.min.js" %}"></script>
 <script>
+
     $(document).ready(function () {
 
         var root;
 
         $('#bugun').addClass('active');
 
+
         $.ajax({
 
-            url: 'http://127.0.0.1:8000/topic/today/',
+            url: '{% url 'topic-general:today_topic' %}',
 
             method: 'GET'
 
         }).done(function (data) {
-
-
-            $.each(data, function (key, listItems) {
-
-                $('.left-side').append('<ul class="list-unstyled"><li><a href="http://127.0.0.1:8000/entry/">' + listItems.fields.title + '</a></li></ul>');
-
-
+            var li = '';
+            $.each(data, function (key, value) {
+                li += '<li><a href="' + value.url + '">' + value.title + '</a></li>';
             });
+            $('.left-side').html('<ul class="list-unstyled">' + li + '</ul>');
 
         });
 
-
     });
+
 
     $('.main-tab-menu a').on('click', function (event) {
 
@@ -212,7 +231,7 @@
 
         $('.main-tab-menu li').removeClass('active');
 
-        root = null;
+        var root = null;
 
         $(this).parent('li').addClass('active');
 
@@ -228,79 +247,50 @@
         }).done(function (data) {
 
 
-            $('.left-side').html('');
-
-
-            $.each(data, function (key, listItems) {
-
-                $('.left-side').append('<ul class="list-unstyled"><li><a href="http://127.0.0.1:8000/entry/{{ topic.title }}">' + listItems.fields.title + '</a></li></ul>');
-
+            var li = '';
+            $.each(data, function (key, value) {
+                li += '<li><a href="' + value.url + '">' + value.title + '</a></li>';
             });
+            $('.left-side').html('<ul class="list-unstyled">' + li + '</ul>');
 
         });
 
     });
 
-    $('.main-tab-menu a').on('click', function (event) {
 
+    $('textarea').keypress(function () {
+        $('#alertMsg').addClass('hidden');
+    });
+
+    $('#newEntryForm').on('submit', function (event) {
         event.preventDefault();
 
-        $('.main-tab-menu li').removeClass('active');
+        var $form = $( this ),
+          url = $form.attr( 'action' );
 
-        root = null;
-
-        $(this).parent('li').addClass('active');
-
-
-        root = $(this).attr('href');
-
-        $.ajax({
-
-            url: root,
-
-            method: 'GET'
-
-        }).done(function (data) {
-
-
-            $('.left-side').html('');
-
-
-            $.each(data, function (key, listItems) {
-
-                $('.left-side').append('<ul class="list-unstyled"><li><a href="http://127.0.0.1:8000/entry/{{ topic.title }}">' + listItems.fields.title + '</a></li></ul>');
-
-            });
-
-        });
-
-    });
-
-
-
-    $('textarea').keypress(function() {
-                $('#alertMsg').addClass('hidden');
-    });
-
-    $('.btn').on('click', function (data) {
-
-        if($('textarea').val().length < 1){
+        if ($('textarea').val().length < 1) {
             $('#alertMsg').removeClass('hidden');
             return false;
         }
+
+        $(this).parent('li').addClass('active');
+        $.ajax({
+            url: url,
+            method: 'POST',
+            data: $form.serialize()
+        }).done(function (data) {
+            var li = "<li>" + data.content + "</li>";
+            $( "li" ).addClass( "brClass" );
+            $("#entryList").append(li);
+            $('textarea').val('')
+        }).fail(function() {
+            alert( "error" );
+          });
+
     });
 
-        $.ajax({
-    {#            url: '{% url 'home-general:new-entry' topic.slug %}',#}
-                url: '{% url 'home-general:new-entry' %}',
-                method: 'POST',
-                data: data
-            }).done(function () {
-                $('textarea').val('');
-            })
 
 </script>
-
 
 
 </body>
